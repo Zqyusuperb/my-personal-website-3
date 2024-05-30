@@ -98,6 +98,28 @@
     </div>
 
     <script>
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝色科技感特效</title>
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+        }
+        .line {
+            position: absolute;
+            height: 2px;
+            background-color: #00f;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <script>
         // 创建流动的光带
         function createLine() {
             const line = document.createElement('div');
@@ -142,6 +164,10 @@
 
         // 初始化
         createLines(50); // 创建50条光带
+    </script>
+</body>
+</html>
+
     </script>
 </body>
 </html>
