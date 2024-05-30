@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World!!!_My First Website</title>
+    <title>个人网页</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,17 +56,31 @@
             padding: 10px;
             background-color: #fff;
         }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000; /* 背景黑色 */
+        }
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(0, 191, 255, 0.8); /* 淡蓝色，带透明 */
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Zhenqi Y.</h1>
-        <p>Postgraduate student</p>
+        <h1>你的姓名</h1>
+        <p>职业</p>
     </header>
 
     <div class="container">
         <h2>简介</h2>
-        <p>QUT to SEU;MSE student;Cement and Concrete</p>
+        <p>在这里写上你的简介，包括你的教育背景、兴趣爱好和研究领域。</p>
 
         <h2>作品集</h2>
         <div class="portfolio">
@@ -98,76 +112,55 @@
     </div>
 
     <script>
-       <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蓝色科技感特效</title>
-    <style>
-        body {
-            background-color: #000;
-            margin: 0;
-            overflow: hidden;
-        }
-        .line {
-            position: absolute;
-            height: 2px;
-            background-color: #00f;
-            opacity: 0.5;
-        }
-    </style>
-</head>
-<body>
-    <script>
-        // 创建流动的光带
-        function createLine() {
-            const line = document.createElement('div');
-            line.classList.add('line');
-            line.style.width = `${Math.random() * 100}%`;
-            line.style.left = `${Math.random() * window.innerWidth}px`;
-            line.style.top = `${Math.random() * window.innerHeight}px`;
-            document.body.appendChild(line);
-            animateLine(line);
+        const particles = [];
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${Math.random() * window.innerWidth}px`;
+            particle.style.top = `${Math.random() * window.innerHeight}px`;
+            document.body.appendChild(particle);
+
+            const particleObject = {
+                element: particle,
+                x: parseFloat(particle.style.left),
+                y: parseFloat(particle.style.top),
+                xSpeed: (Math.random() - 0.5) * 2,
+                ySpeed: (Math.random() - 0.5) * 2,
+                life: 100 + Math.random() * 100
+            };
+
+            particles.push(particleObject);
         }
 
-        // 动画效果
-        function animateLine(line) {
-            const duration = Math.random() * 3000 + 1000; // 随机持续时间
-            const endX = Math.random() * window.innerWidth; // 随机结束位置
-            const endY = Math.random() * window.innerHeight;
-            const start = performance.now();
-            function update(time) {
-                const elapsed = time - start;
-                const progress = elapsed / duration;
-                line.style.transform = `translate(${lerp(line.offsetLeft, endX, progress)}px, ${lerp(line.offsetTop, endY, progress)}px)`;
-                if (progress < 1) {
-                    requestAnimationFrame(update);
+        function animateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.xSpeed;
+                p.y += p.ySpeed;
+                p.life -= 1;
+
+                if (p.life <= 0) {
+                    p.element.remove();
+                    particles.splice(i, 1);
                 } else {
-                    line.remove(); // 动画结束后移除元素
+                    p.element.style.left = `${p.x}px`;
+                    p.element.style.top = `${p.y}px`;
                 }
             }
-            requestAnimationFrame(update);
+
+            requestAnimationFrame(animateParticles);
         }
 
-        // 线性插值函数
-        function lerp(start, end, progress) {
-            return (1 - progress) * start + progress * end;
-        }
-
-        // 创建多个光带
-        function createLines(count) {
-            for (let i = 0; i < count; i++) {
-                createLine();
+        function init() {
+            for (let i = 0; i < 100; i++) {
+                createParticle();
             }
+
+            animateParticles();
         }
 
-        // 初始化
-        createLines(50); // 创建50条光带
-    </script>
-</body>
-</html>
-
+        init();
     </script>
 </body>
 </html>
