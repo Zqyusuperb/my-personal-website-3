@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World!!!_My First Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5fe;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #6495ED;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            color: #6495ED;
+        }
+        p {
+            color: #333;
+            font-size: 18px;
+        }
+        .portfolio {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .portfolio-item {
+            width: 30%;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+        }
+        .portfolio-item .description {
+            padding: 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Zhenqi Y.</h1>
+        <p>Postgraduate student</p>
+    </header>
+
+    <div class="container">
+        <h2>简介</h2>
+        <p>QUT to SEU;MSE student;Cement and Concrete</p>
+
+        <h2>作品集</h2>
+        <div class="portfolio">
+            <div class="portfolio-item">
+                <img src="image1.jpg" alt="作品1">
+                <div class="description">
+                    <h3>作品1标题</h3>
+                    <p>作品1描述</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="image2.jpg" alt="作品2">
+                <div class="description">
+                    <h3>作品2标题</h3>
+                    <p>作品2描述</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="image3.jpg" alt="作品3">
+                <div class="description">
+                    <h3>作品3标题</h3>
+                    <p>作品3描述</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>联系方式</h2>
+        <p>在这里提供你的联系方式，例如邮箱、电话等。</p>
+    </div>
+
+    <script>
+        // 创建流动的光带
+        function createLine() {
+            const line = document.createElement('div');
+            line.classList.add('line');
+            line.style.width = `${Math.random() * 100}%`;
+            line.style.left = `${Math.random() * window.innerWidth}px`;
+            line.style.top = `${Math.random() * window.innerHeight}px`;
+            document.body.appendChild(line);
+            animateLine(line);
+        }
+
+        // 动画效果
+        function animateLine(line) {
+            const duration = Math.random() * 3000 + 1000; // 随机持续时间
+            const endX = Math.random() * window.innerWidth; // 随机结束位置
+            const endY = Math.random() * window.innerHeight;
+            const start = performance.now();
+            function update(time) {
+                const elapsed = time - start;
+                const progress = elapsed / duration;
+                line.style.transform = `translate(${lerp(line.offsetLeft, endX, progress)}px, ${lerp(line.offsetTop, endY, progress)}px)`;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    line.remove(); // 动画结束后移除元素
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // 线性插值函数
+        function lerp(start, end, progress) {
+            return (1 - progress) * start + progress * end;
+        }
+
+        // 创建多个光带
+        function createLines(count) {
+            for (let i = 0; i < count; i++) {
+                createLine();
+            }
+        }
+
+        // 初始化
+        createLines(50); // 创建50条光带
+    </script>
+</body>
+</html>
